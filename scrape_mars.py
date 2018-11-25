@@ -64,6 +64,12 @@ def scrape():
     # Visit Mars Space Images through splinter
     image_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(image_url)
+    f1 = browser.find_by_id("full_image")
+    f1.click()
+
+    time.sleep(1)
+    
+    browser.click_link_by_partial_text('more info')
 
     # HTML Object 
     html_image = browser.html
@@ -72,17 +78,17 @@ def scrape():
     soup = bs(html_image, 'html.parser')
 
     # Retrieve background-image url from style tag 
-    featured_image_url  = soup.find('article')['style'].replace('background-image: url(','').replace(');', '')[1:-1]
-
+    # featured_image_url  = soup.find(class_='lede').find('a').get('href')
+    featured_image_url  = soup.find(class_='lede').find('a').get('href')
     # Website Url 
     main_url = 'https://www.jpl.nasa.gov'
 
     # Assign url to the variable
     featured_image_url = main_url + featured_image_url
 
-
-    # Display full link to featured image
+    # Display complete url string
     print(featured_image_url)
+
 
     # **************************************************************************
     #   Mars Weather 
@@ -183,12 +189,12 @@ def scrape():
         
         # Create dictionary
 
-        mars = []
+    mars = []
 
-        mars.append({"news_title" : news_title, "news_paragraph" : news_p, "featured_image_url" : featured_image_url,
+    mars.append({"news_title" : news_title, "news_paragraph" : news_p, "featured_image_url" : featured_image_url,
 
-                "mars_weather" : mars_weather, "mars_facts" : mars_facts, "hemispheres_urls" : hemisphere_image_urls})
+            "mars_weather" : mars_weather, "mars_facts" : mars_facts, "hemispheres_urls" : hemisphere_image_urls})
 
-        # return data
+    # return data
 
-        return mars
+    return mars
