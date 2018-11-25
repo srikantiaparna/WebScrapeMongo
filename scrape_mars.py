@@ -125,13 +125,26 @@ def scrape():
     # **************************************************************************
     #   Mars Facts
     # **************************************************************************
-    # Visit the Mars Facts webpage & scrape the table containing facts about the planet 
-    df = pd.read_html(facts_url , attrs = {'id': 'tablepress-mars'})[0]
-    df = df.set_index(0).rename(columns={1:"value"})
-    df
+    # Visit Mars facts url 
+    facts_url = 'http://space-facts.com/mars/'
+
+    # Parsing the url 
+    Mars_Facts = pd.read_html(facts_url)
+
+    # convert the list into a dataframe
+    MarsFacts_df = Mars_Facts[0]
+
+    # Assign the column names for display 
+    MarsFacts_df.columns = ['Mars Planet Profile','Value']
+
+    # Set the index to the `MarsPlanetProfile` column without row indexing
+    MarsFacts_df.set_index(['Mars Planet Profile','Value'], inplace=True)
+
+    # Display mars facts
+    MarsFacts_df
 
     # Convert to HTML Table string
-    mars_facts = df.to_html()
+    mars_facts = MarsFacts_df.to_html()
 
     # Display Mars Facts Table in HTML Format
 

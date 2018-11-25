@@ -26,7 +26,8 @@ collection = db.mars
 
 def index():
 
-    mars_facts = db.mars_collection.find_one(sort=[('_id', -1)])
+    # mars_facts = db.mars.find_one()
+    mars_facts = db.mars.find_one(sort=[('_id', -1)])
 
     return render_template("index.html", listings=mars_facts)
 
