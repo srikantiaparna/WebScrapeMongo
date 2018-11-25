@@ -1,18 +1,14 @@
-# from splinter import Browser
-# import pandas as pd
-# import requests
-# import time
-
-
 def init_browser():
-    # Choose the executable path to chromebrowser
-    executable_path = {'executable_path': 'chromedriver.exe'}
-    browser = Browser('chrome', **executable_path, headless=False)
+    # @NOTE: Replace the path with your actual path to the chromedriver
+
+    executable_path = {"executable_path": "/usr/local/bin/chromedriver"}
+    browser = Browser('chrome', **executable_path, wait_time=60, fullscreen=False, incognito=True, headless=False)
 
 
 def scrape():
 
-
+    # Dependencies
+    
     from splinter import Browser
     from bs4 import BeautifulSoup as bs
     import requests
@@ -20,7 +16,7 @@ def scrape():
     import pandas as pd
     import time
 
-
+    # chromebrowser set up
     executable_path = {'executable_path': 'chromedriver.exe'}
     browser = Browser('chrome', **executable_path, headless=False)
 
@@ -31,13 +27,13 @@ def scrape():
     facts_url = 'http://space-facts.com/mars/'
     hemisphere_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
 
-    mars_info = {}
+    #mars_info = {}
 
     # **************************************************************************
     #    NASA Mars News
     # **************************************************************************
     # Initialize browser 
-    browser = init_browser()
+    #browser = init_browser()
 
     # Visit Nasa news url through splinter 
     news_url = 'https://mars.nasa.gov/news/'
@@ -47,23 +43,24 @@ def scrape():
     html = browser.html
 
     # Parsing HTML with Beautiful Soup
-    soup = BeautifulSoup(html, 'html.parser')
+    soup = bs(html, 'html.parser')
 
 
     # Scrapes the site and collects the latest News Title and Paragraph Text. 
     news_title = soup.find('div', class_='content_title').find('a').text
     news_p = soup.find('div', class_='article_teaser_body').text
 
-    # Dictionary entry from MARS NEWS
-    mars_info['news_title'] = news_title
-    mars_info['news_paragraph'] = news_p
+    print(news_title)
+
+    print(news_p)
+
 
 
     # **************************************************************************
     #    JPL Mars Space Images - Featured Image
     # **************************************************************************
     # Initialize browser 
-    browser = init_browser()
+    #browser = init_browser()
 
     # Visit Mars Space Images through splinter
     image_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
@@ -86,18 +83,14 @@ def scrape():
 
 
     # Display full link to featured image
-    featured_image_url 
-
-    # Dictionary entry from FEATURED IMAGE
-    mars_info['featured_image_url'] = featured_image_url 
-
+    print(featured_image_url)
 
     # **************************************************************************
     #   Mars Weather 
     # **************************************************************************
 
     # Initialize browser 
-    browser = init_browser()
+    #browser = init_browser()
 
     # Visit Mars Weather Twitter through splinter 
     weather_url = 'https://twitter.com/marswxreport?lang=en'
@@ -107,7 +100,7 @@ def scrape():
     html_weather = browser.html
 
     # Parsing HTML with Beautiful Soup
-    soup = BeautifulSoup(html_weather, 'html.parser')
+    soup = bs(html_weather, 'html.parser')
 
     # Find all tweets
     latest_tweets = soup.find_all('div', class_='js-tweet-text-container')
@@ -120,8 +113,8 @@ def scrape():
             break
         else: 
             pass
-    # Dictionary entry from Mars Weather Tweet 
-    mars_info['mars_weather'] = mars_weather
+    # Print Mars Weather Tweet 
+    mars_weather
 
 
     # **************************************************************************
@@ -130,13 +123,14 @@ def scrape():
     # Visit the Mars Facts webpage & scrape the table containing facts about the planet 
     df = pd.read_html(facts_url , attrs = {'id': 'tablepress-mars'})[0]
     df = df.set_index(0).rename(columns={1:"value"})
+    df
 
     # Convert to HTML Table string
     mars_facts = df.to_html()
 
     # Display Mars Facts Table in HTML Format
 
-    mars_info['mars_facts'] = mars_facts
+    print(mars_facts)
 
 
     # **************************************************************************
@@ -144,7 +138,7 @@ def scrape():
     # **************************************************************************
 
     # Initialize browser 
-    browser = init_browser()
+    #browser = init_browser()
 
     # Visit hemispheres website through splinter module 
     hemispheres_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
@@ -154,7 +148,7 @@ def scrape():
     html_hemispheres = browser.html
 
     # Parsing HTML with Beautiful Soup
-    soup = BeautifulSoup(html_hemispheres, 'html.parser')
+    soup = bs(html_hemispheres, 'html.parser')
 
     # Retreive mars hemispheres information
     items = soup.find_all('div', class_='item')
@@ -188,7 +182,14 @@ def scrape():
         # Append the retreived information into a list of dictionaries 
         hemisphere_image_urls.append({"title" : title, "img_url" : img_url})
         
-        # Display hemisphere_image_urls as a dictionary
-        mars_info['hemisphere_image_urls'] = hemisphere_image_urls
+        # Create dictionary
 
-    return mars_info
+        mars = []
+
+        mars.append({"news_title" : news_title, "news_paragraph" : news_p, "featured_image_url" : featured_image_url,
+
+                "mars_weather" : mars_weather, "mars_facts" : mars_facts, "hemispheres_urls" : hemisphere_image_urls})
+
+        # return data
+
+        return mars

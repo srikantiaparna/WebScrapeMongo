@@ -54,9 +54,9 @@
 
                         <hr>
 
-                        <h3>{{ mars.news_title }}</h3>
+                        <h3>{{ listings.news_title }}</h3>
 
-                        <p>{{ mars.news_paragraph }}</p>
+                        <p>{{ listings.news_paragraph }}</p>
 
                     </div>
 
@@ -64,7 +64,7 @@
 
                         <h2>Featured Mars Image</h2>
 
-                        <img class="img-fluid" src="{{ mars.featured_image_url  }}">
+                        <img class="img-fluid" src="{{ listings.featured_image_url  }}">
 
                     </div>
 
@@ -84,7 +84,7 @@
 
                                 <h4>Current Weather on Mars</h4>
 
-                                <p>{{ mars.mars_weather }}
+                                <p>{{ listings.mars_weather }}
 
                             </div>
 
@@ -98,7 +98,7 @@
 
                         <hr>
 
-                        {{ mars.mars_facts|safe }}
+                        {{ listings.mars_facts|safe }}
 
                     </div>
 
@@ -122,7 +122,7 @@
 
 
 
-        {% for item in mars.hemisphere_image_urls %}
+        {% for item in listings.hemisphere_image_urls %}
 
         <div class="col-md-6">
 

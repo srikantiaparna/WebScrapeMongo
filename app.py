@@ -18,28 +18,38 @@ conn = "mongodb://localhost:27017"
 client = pymongo.MongoClient(conn)
 
 # connect to mongo db and collection
-db = client.mars
+db = client.mars_db
 collection = db.mars
 
 
 @app.route("/")
+
 def index():
-    mars = db.mars.find_one()
-    return render_template("index.html", mars=mars)
+
+    mars_facts = db.mars_collection.find_one(sort=[('_id', -1)])
+
+    return render_template("index.html", listings=mars_facts)
+
 
 
 @app.route("/scrape")
-def scrape():
-    mars = db.mars
-    mars_info = scrape_mars.scrape()
-    mars.update(
-        {},
-        mars_info,
-        upsert=True
-    )
+
+def scraper():
+
+    listings_data = scrape_mars.scrape()
+
+    print(listings_data)
+
+    print("Scraping complete")
+
+    collection.insert(listings_data)
+
     return redirect("/", code=302)
 
+
+
 if __name__ == "__main__":
+
     app.run(debug=True)
 
 # http://127.0.0.1:5000/
