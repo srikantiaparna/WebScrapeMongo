@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # Use flask_pymongo to set up mongo connection
 # app.config["MONGO_URI"] = "mongodb://localhost:27017/craigslist_app"
-#mongo = pymongo(app)
+# mongo = pymongo(app)
 
 # Or set inline
 # mongo = PyMongo(app, uri="mongodb://localhost:27017/craigslist_app")
@@ -52,5 +52,5 @@ if __name__ == "__main__":
 
     app.run(debug=True)
 
-# http://127.0.0.1:5000/
+#### http://127.0.0.1:5000/
 

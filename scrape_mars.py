@@ -1,5 +1,5 @@
 def init_browser():
-    # @NOTE: Replace the path with your actual path to the chromedriver
+    ####@NOTE: Replace the path with your actual path to the chromedriver
 
     executable_path = {"executable_path": "/usr/local/bin/chromedriver"}
     browser = Browser('chrome', **executable_path, wait_time=60, fullscreen=False, incognito=True, headless=False)
@@ -16,7 +16,7 @@ def scrape():
     import pandas as pd
     import time
 
-    # chromebrowser set up
+    # Chromebrowser set up
     executable_path = {'executable_path': 'chromedriver.exe'}
     browser = Browser('chrome', **executable_path, headless=False)
 
@@ -27,7 +27,6 @@ def scrape():
     facts_url = 'http://space-facts.com/mars/'
     hemisphere_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
 
-    #mars_info = {}
 
     # **************************************************************************
     #    NASA Mars News
