@@ -69,7 +69,7 @@ def scrape():
     html_image = browser.html
 
     # Parse HTML with Beautiful Soup
-    soup = BeautifulSoup(html_image, 'html.parser')
+    soup = bs(html_image, 'html.parser')
 
     # Retrieve background-image url from style tag 
     featured_image_url  = soup.find('article')['style'].replace('background-image: url(','').replace(');', '')[1:-1]
@@ -173,7 +173,7 @@ def scrape():
         partial_img_html = browser.html
         
         # Parsing HTML with Beautiful Soup for each hemisphere information website 
-        soup = BeautifulSoup( partial_img_html, 'html.parser')
+        soup = bs( partial_img_html, 'html.parser')
         
         # Retrieve each full image source 
         img_url = main_url + soup.find('img', class_='wide-image')['src']
